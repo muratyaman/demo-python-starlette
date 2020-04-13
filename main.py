@@ -1,22 +1,21 @@
-# from starlette.applications import Starlette
-# from starlette.responses import JSONResponse
-# from starlette.routing import Route
+from starlette.applications import Starlette
+from starlette.responses import JSONResponse, Response
+from starlette.routing import Route
+from datetime import datetime
 
 
-# async def homepage(request):
-#     return JSONResponse({'hello': 'world'})
+async def homepage(request):
+    now = datetime.now()
+    ts = now.isoformat()
+    return JSONResponse({'hello': 'world', 'ts': ts})
 
 
-# app = Starlette(debug=True, routes=[
-#     Route('/', homepage),
-# ])
+app = Starlette(debug=True, routes=[
+    Route('/', homepage),
+])
 
 
-from starlette.responses import Response
-
-
-async def app(scope, receive, send):
-    #assert scope['type'] == 'http'
-    response = Response('Hello, world!', media_type='text/plain')
-    await response(scope, receive, send)
-
+# async def app(scope, receive, send):
+#    #assert scope['type'] == 'http'
+#    response = Response('Hello, world!', media_type='text/plain')
+#    await response(scope, receive, send)
